@@ -1,0 +1,16 @@
+{
+  "name": "@airbnb/config",
+  "version": "1.0.0",
+  "description": "Shared configuration files",
+  "private": true,
+  "files": [
+    "eslint-preset.js",
+    "prettier.config.js",
+    "typescript"
+  ],
+  "exports": {
+    "./eslint": "./eslint-preset.js",
+    "./prettier": "./prettier.config.js",
+    "./typescript": "./typescript"
+  }
+}

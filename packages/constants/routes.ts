@@ -1,0 +1,23 @@
+export const ROUTES = {
+  HOME: '/',
+  LISTINGS: '/listings',
+  LISTING_DETAIL: (id: string) => `/listings/${id}`,
+  SEARCH: '/search',
+  BOOKINGS: '/bookings',
+  BOOKING_DETAIL: (id: string) => `/bookings/${id}`,
+  MESSAGES: '/messages',
+  PROFILE: '/profile',
+  SETTINGS: '/settings',
+  SIGN_IN: '/auth/sign-in',
+  SIGN_UP: '/auth/sign-up',
+  FORGOT_PASSWORD: '/auth/forgot-password',
+  RESET_PASSWORD: (token: string) => `/auth/reset-password/${token}`,
+  HOST: {
+    DASHBOARD: '/host/dashboard',
+    LISTINGS: '/host/listings',
+    CREATE_LISTING: '/host/listings/create',
+    EDIT_LISTING: (id: string) => `/host/listings/${id}/edit`,
+    REVIEWS: '/host/reviews',
+    RESERVATIONS: '/host/reservations',
+  },
+} as const;

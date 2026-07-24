@@ -1,0 +1,34 @@
+{
+  "extends": "../../packages/config/typescript/node.json",
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/common/*": ["./src/common/*"],
+      "@/config/*": ["./src/config/*"],
+      "@/database/*": ["./src/database/*"],
+      "@/modules/*": ["./src/modules/*"],
+      "@/filters/*": ["./src/filters/*"],
+      "@/guards/*": ["./src/guards/*"],
+      "@/interceptors/*": ["./src/interceptors/*"],
+      "@/decorators/*": ["./src/decorators/*"],
+      "@/pipes/*": ["./src/pipes/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/types/*": ["./src/types/*"],
+      "@airbnb/types": ["../../packages/types"],
+      "@airbnb/utils": ["../../packages/utils"],
+      "@airbnb/constants": ["../../packages/constants"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

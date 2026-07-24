@@ -1,0 +1,16 @@
+{
+  "name": "@airbnb/utils",
+  "version": "1.0.0",
+  "description": "Shared utility functions",
+  "private": true,
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./format": "./format.ts",
+    "./string": "./string.ts",
+    "./date": "./date.ts",
+    "./async": "./async.ts",
+    "./validation": "./validation.ts",
+    "./number": "./number.ts"
+  }
+}

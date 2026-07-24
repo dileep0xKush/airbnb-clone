@@ -1,0 +1,30 @@
+{
+  "name": "airbnb-clone",
+  "version": "1.0.0",
+  "description": "Production-ready Airbnb-style monorepo application",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "format:check": "turbo run format:check",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules && pnpm store prune",
+    "db:push": "turbo run db:push --scope=api",
+    "db:migrate": "turbo run db:migrate --scope=api",
+    "db:studio": "turbo run db:studio --scope=api"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "prettier": "^3.3.3",
+    "eslint": "^9.9.1",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=18.17",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.4"
+}

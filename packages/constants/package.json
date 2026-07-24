@@ -1,0 +1,13 @@
+{
+  "name": "@airbnb/constants",
+  "version": "1.0.0",
+  "description": "Shared constants and configuration values",
+  "private": true,
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./routes": "./routes.ts",
+    "./api": "./api.ts",
+    "./app": "./app.ts"
+  }
+}

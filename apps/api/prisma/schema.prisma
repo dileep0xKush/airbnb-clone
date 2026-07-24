@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  avatar    String?
+  bio       String?
+  phone     String?
+  verified  Boolean  @default(false)
+
+  host      Host?
+  listings  Listing[]
+  bookings  Booking[]
+  reviews   Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Host {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  bio             String?
+  verified        Boolean  @default(false)
+  responseTime    String?
+  acceptanceRate  Float?
+  totalListings   Int      @default(0)
+  totalReviews    Int      @default(0)
+  avgRating       Float?
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listings  Listing[]
+  reviews   Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("hosts")
+}
+
+model Listing {
+  id              String   @id @default(uuid())
+  title           String
+  description     String
+  hostId          String
+  pricePerNight   Float
+  currency        String   @default("USD")
+  maxGuests       Int
+  bedrooms        Int      @default(0)
+  bathrooms       Int      @default(0)
+  beds            Int      @default(0)
+  rating          Float?
+  reviewCount     Int      @default(0)
+  available       Boolean  @default(true)
+
+  address   String
+  city      String
+  state     String
+  country   String
+  latitude  Float
+  longitude Float
+
+  host      Host        @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  images    Image[]
+  amenities AmenityToListing[]
+  bookings  Booking[]
+  reviews   Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([hostId])
+  @@index([city])
+  @@map("listings")
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  url       String
+  altText   String?
+  listingId String
+
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([listingId])
+  @@map("images")
+}
+
+model Amenity {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  icon      String
+  category  String
+
+  listings  AmenityToListing[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("amenities")
+}
+
+model AmenityToListing {
+  listingId String
+  amenityId String
+
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  amenity Amenity @relation(fields: [amenityId], references: [id], onDelete: Cascade)
+
+  @@id([listingId, amenityId])
+  @@map("amenities_to_listings")
+}
+
+model Booking {
+  id              String   @id @default(uuid())
+  listingId       String
+  guestId         String
+  checkInDate     DateTime
+  checkOutDate    DateTime
+  numberOfGuests  Int
+  totalPrice      Float
+  currency        String   @default("USD")
+  status          BookingStatus @default(PENDING)
+
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  guest   User    @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([listingId])
+  @@index([guestId])
+  @@map("bookings")
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  listingId String
+  guestId   String
+  hostId    String
+  rating    Int
+  comment   String
+  cleanliness Int?
+  communication Int?
+  accuracy Int?
+  value Int?
+
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  guest   User    @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  host    Host    @relation(fields: [hostId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([listingId, guestId])
+  @@index([listingId])
+  @@index([guestId])
+  @@index([hostId])
+  @@map("reviews")
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
