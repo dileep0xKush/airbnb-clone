@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss/types';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -28,6 +28,15 @@ const config: Config = {
       },
       borderRadius: {
         '2xl': '1rem',
+      },
+      fontFamily: {
+        system: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'sans-serif',
+        ],
       },
     },
   },
